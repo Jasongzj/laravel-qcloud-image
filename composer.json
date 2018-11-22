@@ -1,0 +1,26 @@
+{
+    "name": "jasongzj/laravel-qcloud-image",
+    "description": "tencent image recgnition SDK for Laravel",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "jasongzj",
+            "email": "jasongzj@163.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Jasongzj\\LaravelQcloudImage\\": "src"
+        }
+    },
+    "require": {
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Jasongzj\\LaravelQcloudImage\\ServiceProvider"
+            ]
+        }
+    }
+}

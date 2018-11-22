@@ -110,11 +110,12 @@ class QcloudImage
             $param['url'] = $picture['url'];
 
             try {
-                return $this->getHttpClient()->post($reqUrl, [
+                $response = $this->getHttpClient()->post($reqUrl, [
                     'headers' => $headers,
                     'timeout' => $this->conf->timeout(),
                     'json' => $param,
                 ])->getBody()->getContents();
+                return \GuzzleHttp\json_decode($response, true);
             } catch (\Exception $e) {
                 throw new HttpException($e->getMessage(), $e->getCode(), $e);
             }
@@ -157,11 +158,12 @@ class QcloudImage
         array_push($param, $files);
 
         try {
-            return $this->getHttpClient()->request('POST', $reqUrl, [
+            $response = $this->getHttpClient()->request('POST', $reqUrl, [
                 'headers' => $headers,
                 'timeout' => $this->conf->timeout(),
                 'multipart' => $param
             ])->getBody()->getContents();
+            return \GuzzleHttp\json_decode($response, true);
         } catch (\Exception $e) {
             throw new HttpException($e->getMessage(), $e->getCode(), $e);
         }

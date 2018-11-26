@@ -87,6 +87,24 @@ $qcloudImage->faceDetect(array('file'=>'F:\pic\face1.jpg'),0);
 $qcloudImage->faceDetect(array('buffer'=>file_get_contents('F:\pic\face1.jpg')), 1);
 ```
 
+#### 智能鉴黄
+
+```
+//单个或多个图片 URL
+$qcloudImage->pornDetect(
+    array('urls'=>
+        array('http://img3.a0bi.com/upload/ttq/20160814/1471155260063.png',
+            "http://jiangsu.china.com.cn/uploadfile/2015/1102/1446443026382534.jpg")
+    )
+);
+//单个或多个图片 file
+$qcloudImage->pornDetect(
+    array('files'=>
+        array('F:\pic\你好.jpg','G:\pic\test2.jpg')
+    )
+);
+```
+
 ## 参考
 
 [云智AI应用服务智能图像 SDK V2.0](https://github.com/tencentyun/image-php-sdk-v2.0)

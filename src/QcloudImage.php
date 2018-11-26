@@ -169,6 +169,84 @@ class QcloudImage
         }
     }
 
+    /**
+     * 黄图识别
+     * @param  array(associative) $picture   识别的图片
+     *                 * * @param  array(associative) $pictures   Person的人脸图片
+     *                  urls    array: 指定图片的url数组
+     *                  files   array: 指定图片的路径数组
+     *                  以上两种指定其一即可，如果指定多个，则优先使用urls，其次 files
+     *
+     * @return array    http请求响应
+     * @throws HttpException
+     * @throws InvalidArgumentException
+     * @throws InvalidFilePathException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function pornDetect($picture) {
+
+        if (!$picture || !is_array($picture)) {
+            throw new InvalidArgumentException('param picture must be array');
+        }
+        $reqUrl = $this->conf->buildUrl('/detection/pornDetect');
+        $headers = $this->baseHeaders();
+
+        if (isset($picture['urls'])) {
+            $headers[] = 'Content-Type:application/json';
+            $param = $this->baseJsonParams();
+            $param['url_list'] = $picture['urls'];
+
+            try {
+                $response = $this->getHttpClient()->post($reqUrl, [
+                    'headers' => $headers,
+                    'timeout' => $this->conf->timeout(),
+                    'json' => $param,
+                ])->getBody()->getContents();
+                return \GuzzleHttp\json_decode($response, true);
+            } catch (\Exception $e) {
+                throw new HttpException($e->getMessage(), $e->getCode(), $e);
+            }
+        } else if (isset($picture['files'])){
+            $param = $this->baseMultiParams();
+            $index = 0;
+
+            foreach ($picture['files'] as $file) {
+                if (PATH_SEPARATOR == ';') {    // WIN OS
+                    $path = iconv("UTF-8", "gb2312//IGNORE", $file);
+                } else {
+                    $path = $file;
+                }
+                $filePath = realpath($path);
+
+                if (!file_exists($filePath)) {
+                    throw new InvalidFilePathException('file ' . $file . ' not exist');
+                }
+
+                $filename = pathinfo($filePath, PATHINFO_BASENAME);
+                $data = [
+                    'name' => "image[$index]",
+                    'filename' => $filename,
+                    'contents' => fopen($filePath, 'r')
+                ];
+                array_push($param, $data);
+                $index++;
+            }
+
+            try {
+                $response = $this->getHttpClient()->request('POST', $reqUrl, [
+                    'headers' => $headers,
+                    'timeout' => $this->conf->timeout(),
+                    'multipart' => $param
+                ])->getBody()->getContents();
+                return \GuzzleHttp\json_decode($response, true);
+            } catch (\Exception $e) {
+                throw new HttpException($e->getMessage(), $e->getCode(), $e);
+            }
+        } else {
+            throw new InvalidArgumentException('param picture is illegal');
+        }
+    }
+
     private function baseHeaders()
     {
         return [

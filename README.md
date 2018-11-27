@@ -37,7 +37,7 @@ QCLOUD_IMAGE_BUCKET=xxxxxxx
 
 ## 使用
 
-#### 方法参数注入
+### 方法参数注入
 
 ```
 use Jasongzj\LaravelQcloudImage\QcloudImage;
@@ -72,11 +72,11 @@ use Jasongzj\LaravelQcloudImage\QcloudImage;
 ·
 ```
 
-### API
+## API
 
-#### 人脸识别
+### 人脸识别
 
-##### 人脸检测
+#### 人脸检测
 检测给定图片中的所有人脸( Face )的位置和相应的面部属性，位置包括(x，y，w，h)，面部属性包括性别( gender )、年龄( age )、表情( expression )、魅力( beauty )、眼镜( glass )和姿态 (pitch，roll，yaw )。
 ```
 // 单个图片 URL， mode:1 为检测最大的人脸，0 为检测所有人脸
@@ -87,7 +87,7 @@ $qcloudImage->faceDetect(array('file'=>'F:\pic\face1.jpg'),0);
 $qcloudImage->faceDetect(array('buffer'=>file_get_contents('F:\pic\face1.jpg')), 1);
 ```
 
-##### 五官定位
+#### 五官定位
 对请求图片进行五官定位，计算构成人脸轮廓的 88 个点，包括眉毛（左右各 8 点）、眼睛（左右各 8 点）、鼻子（ 13 点）、嘴巴（ 22 点）、脸型轮廓（ 21 点）。
 ```
 // 单个图片Url,mode:1为检测最大的人脸 , 0为检测所有人脸
@@ -98,7 +98,7 @@ $qcloudImage->faceShape(array('file'=>'F:\pic\face1.jpg'),0);
 $qcloudImage->faceShape(array('buffer'=>file_get_contents('F:\pic\face1.jpg')), 1);
 ```
 
-##### 人脸对比
+#### 人脸对比
 计算两个 Face 的相似性以及五官相似度。
 ```
 // 两个对比图片的文件url
@@ -109,7 +109,7 @@ $qcloudImage->faceCompare(array('file'=>'F:\pic\yang.jpg'), array('file'=>'F:\pi
 $qcloudImage->faceCompare(array('file'=>'F:\pic\yang.jpg'), array('file'=>'F:\pic\yang2.jpg'));
 ```
 
-##### 个体信息管理
+#### 个体信息管理
 ```
 // 个体创建,创建一个Person，并将Person放置到group_ids指定的组当中，不存在的group_id会自动创建。
 // 创建一个Person, 使用图片url
@@ -158,7 +158,7 @@ $qcloudImage->faceAddGroupIds('person11', array('group2', 'group3'));
 $qcloudImage->faceDelGroupIds('person11', array('group2', 'group3'));
 ```
 
-##### 人脸验证
+#### 人脸验证
 给定一个图片和一个 Person ，检查是否是同一个人。
 ```
 // 单个图片Url
@@ -169,7 +169,7 @@ $qcloudImage->faceVerify('person3111', array('file'=>'F:\pic\yang3.jpg'));
 $qcloudImage->faceVerify('person3111', array('buffer'=>file_get_contents('F:\pic\yang3.jpg')));
 ```
 
-##### 人脸检索
+#### 人脸检索
 对一张待识别的人脸图片，在一个或多个 group 中识别出最相似的 Top5 person 作为其身份返回，返回的 Top5 中按照相似度从大到小排列。
 ```
 // 单个文件url
@@ -180,7 +180,7 @@ $qcloudImage->faceIdentify('group11', array('file'=>'F:\pic\yang3.jpg'));
 $qcloudImage->faceIdentify('group11', array('buffer'=>file_get_contents('F:\pic\yang3.jpg')));
 ```
 
-##### 多脸检索
+#### 多脸检索
 对一张包含多个待识别的人脸的图片，在一个 group 或多个 groups 中识别出最相似的 person 作为其身份返回，返回的 Top5 中按照相似度从大到小排列。
 ```
 // 单张文件url，一个group
@@ -198,9 +198,9 @@ $qcloudImage->multidentify(array('buffer'=>file_get_contents('F:\pic\yang3.jpg')
 
 ```
 
-#### 人脸核身
+### 人脸核身
 
-##### 人脸静态活体检测
+#### 人脸静态活体检测
 对用户上传的静态照片进行人脸活体检测，判断是否为活体
 ```
 // 单个文件url
@@ -211,7 +211,7 @@ $qcloudImage->liveDetectPicture(array('file'=>'F:\pic\yang3.jpg'));
 $qcloudImage->liveDetectPicture(array('buffer'=>file_get_contents('F:\pic\yang3.jpg')));
 ```
 
-##### 用户上传照片身份信息核验
+#### 用户上传照片身份信息核验
 用于判断给定一张照片与身份证号和姓名对应的登记照的人脸相似度，即判断给定照片中的人与身份证上的人是否为同一人。
 ```
 // 身份证号，身份证姓名，单个文件url
@@ -222,7 +222,7 @@ $qcloudImage->liveDetectPicture('idcardNumber', 'idcardName', array('file'=>'F:\
 $qcloudImage->liveDetectPicture('idcardNumber', 'idcardName', array('buffer'=>file_get_contents('F:\pic\yang3.jpg')));
 ```
 
-##### 活体检测-获取唇语验证码
+#### 活体检测-获取唇语验证码
 获取一个唇语验证字符串，用于录制视频，进行活体检测。
 ```
 $obj = $qcloudImage->faceLiveGetFour();
@@ -230,19 +230,19 @@ var_dump ($obj);
 $validate_data = $obj['data']['validate_data'];
 ```
 
-##### 活体检测-视频与用户照片的比对
+#### 活体检测-视频与用户照片的比对
 判断录制的唇语视频中人物是否为真人（活体检测），同时判断唇语视频中的人脸与给定的一张人脸照片的人脸相似度，即判断视频中的人与给定一张照片的人是否为同一人。
 ````
 $qcloudImage->faceLiveDetectFour($validate_data, array('file'=>'F:\pic\ZOE_0171.mp4'), False, array('F:\pic\idcard.jpg'));
 ````
 
-##### 活体检测-视频与身份证高清照片的比对
+#### 活体检测-视频与身份证高清照片的比对
 判断录制的唇语视频中人物是否为真人（活体检测），同时判断唇语视频中的人脸与身份证号和姓名对应的登记照的人脸相似度，即判断视频中的人与身份证上的人是否为同一人。
 ```
 $qcloudImage->faceIdCardLiveDetectFour($validate_data, array('file'=>'F:\pic\ZOE_0171.mp4'), 'xxxxxxxxxxx', 'xxxxxxxxxxx');
 ```
 
-#### 智能鉴黄
+### 智能鉴黄
 
 ```
 // 单个或多个图片 URL
@@ -252,9 +252,9 @@ $qcloudImage->pornDetect(array('urls'=> array('http://img3.a0bi.com/upload/ttq/2
 $qcloudImage->pornDetect(array('files'=> array('F:\pic\你好.jpg','G:\pic\test2.jpg')));
 ```
 
-#### 文字识别-ORC
+### 文字识别-ORC
 
-##### 身份证识别
+#### 身份证识别
 ```
 
 // 单个或多个图片 URL，cardType: 0为身份证有照片的一面，1为身份证有国徽的一面
@@ -268,7 +268,7 @@ $qcloudImage->namecardV2Detect(array('buffers'=>array(file_get_contents('F:\pic\
 
 ```
 
-##### 名片识别（V2）
+#### 名片识别（V2）
 ```
 // 单个或多个图片 URL，
 $qcloudImage->idcardDetect(array('urls'=>array('http://imgs.focus.cn/upload/sz/5876/a_58758051.jpg',
@@ -280,7 +280,7 @@ $qcloudImage->idcardDetect(array('buffers'=>array(file_get_contents('F:\pic\id6_
                             file_get_contents('F:\pic\id2_zheng.jpg'))));
 ```
 
-##### 行驶证驾驶证识别
+#### 行驶证驾驶证识别
 ```
 // 单个图片 URL， type:0 表示行驶证，1 表示驾驶证，2 表示行驶证副页。
 $qcloudImage->drivingLicence(array('url'=>'http://img3.a0bi.com/upload/ttq/20160814/1471155260063.png'), 1);
@@ -290,7 +290,7 @@ $qcloudImage->drivingLicence(array('file'=>'F:\pic\face1.jpg'),0);
 $qcloudImage->drivingLicence(array('buffer'=>file_get_contents('F:\pic\face1.jpg')), 1);
 ```
 
-##### 车牌号识别
+#### 车牌号识别
 ```
 // 单个图片 URL
 $qcloudImage->plate(array('url'=>'http://img3.a0bi.com/upload/ttq/20160814/1471155260063.png'));
@@ -300,7 +300,7 @@ $qcloudImage->plate(array('file'=>'F:\pic\face1.jpg'));
 $qcloudImage->plate(array('buffer'=>file_get_contents('F:\pic\face1.jpg')));
 ```
 
-##### 银行卡识别
+#### 银行卡识别
 ```
 // 单个图片 URL
 $qcloudImage->bankcard(array('url'=>'http://img3.a0bi.com/upload/ttq/20160814/1471155260063.png'));
@@ -310,7 +310,7 @@ $qcloudImage->bankcard(array('file'=>'F:\pic\face1.jpg'));
 $qcloudImage->bankcard(array('buffer'=>file_get_contents('F:\pic\face1.jpg')));
 ```
 
-##### 营业执照识别
+#### 营业执照识别
 ```
 // 单个图片 URL
 $qcloudImage->bizlicense(array('url'=>'http://img3.a0bi.com/upload/ttq/20160814/1471155260063.png'));
@@ -320,7 +320,7 @@ $qcloudImage->bizlicense(array('file'=>'F:\pic\face1.jpg'));
 $qcloudImage->bizlicense(array('buffer'=>file_get_contents('F:\pic\face1.jpg')));
 ```
 
-##### 通用印刷体识别
+#### 通用印刷体识别
 ```
 // 单个图片 URL
 $qcloudImage->general(array('url'=>'http://img3.a0bi.com/upload/ttq/20160814/1471155260063.png'));
@@ -330,7 +330,7 @@ $qcloudImage->general(array('file'=>'F:\pic\face1.jpg'));
 $qcloudImage->general(array('buffer'=>file_get_contents('F:\pic\face1.jpg')));
 ```
 
-##### 手写体识别
+#### 手写体识别
 ```
 // 单个图片 URL
 $qcloudImage->handwriting(array('url'=>'http://img3.a0bi.com/upload/ttq/20160814/1471155260063.png'));

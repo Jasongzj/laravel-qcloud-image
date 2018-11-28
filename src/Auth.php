@@ -36,7 +36,7 @@ class Auth
      * Return the signature on success.
      * Return false on fail.
      */
-    public function getSign($bucket, $howlong = 30)
+    public function getSign($bucket = '', $howlong = 30)
     {
         if ($howlong <= 0) {
             return false;

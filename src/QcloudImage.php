@@ -10,6 +10,8 @@ namespace Jasongzj\LaravelQcloudImage;
 
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\RequestException;
 use Jasongzj\LaravelQcloudImage\Exceptions\HttpException;
 use Jasongzj\LaravelQcloudImage\Exceptions\InvalidArgumentException;
 use Jasongzj\LaravelQcloudImage\Exceptions\InvalidFilePathException;
@@ -17,13 +19,11 @@ use Jasongzj\LaravelQcloudImage\Exceptions\InvalidFilePathException;
 class QcloudImage
 {
     protected $auth;
-    protected $bucket;
     protected $conf;
     protected $guzzleOptions = [];
 
-    public function __construct($appId, $secretId, $secretKey, $bucket)
+    public function __construct($appId, $secretId, $secretKey)
     {
-        $this->bucket = $bucket;
         $this->auth = new Auth($appId, $secretId, $secretKey);
         $this->conf = new Conf();
     }
@@ -110,12 +110,11 @@ class QcloudImage
             foreach ($picture['files'] as $file) {
                 $filePath = $this->getFileRealPath($file);
                 $filename = pathinfo($filePath, PATHINFO_BASENAME);
-                $data = [
+                $param[] = [
                     'name' => "image[$index]",
                     'filename' => $filename,
                     'contents' => fopen($filePath, 'r')
                 ];
-                array_push($param, $data);
                 $index++;
             }
 
@@ -221,23 +220,21 @@ class QcloudImage
             foreach ($picture['files'] as $file) {
                 $filePath = $this->getFileRealPath($file);
                 $filename = pathinfo($filePath, PATHINFO_BASENAME);
-                $data = [
+                $param[] = [
                     'name' => "image[$index]",
                     'filename' => $filename,
                     'contents' => fopen($filePath, 'r')
                 ];
-                array_push($param, $data);
                 $index++;
             }
 
         } else if (isset($picture['buffers'])) {
             $index = 0;
             foreach ($picture['buffers'] as $buffer) {
-                $data = [
+                $param[] = [
                     'name' => "image[$index]",
                     'contents' => $buffer
                 ];
-                array_push($param, $data);
                 $index++;
             }
 
@@ -283,23 +280,21 @@ class QcloudImage
             foreach ($picture['files'] as $file) {
                 $filePath = $this->getFileRealPath($file);
                 $filename = pathinfo($filePath, PATHINFO_BASENAME);
-                $data = [
+                $param[] = [
                     'name' => "image[$index]",
                     'filename' => $filename,
                     'contents' => fopen($filePath, 'r')
                 ];
-                array_push($param, $data);
                 $index++;
             }
 
         } else if (isset($picture['buffers'])) {
             $index = 0;
             foreach ($picture['buffers'] as $buffer) {
-                $data = [
+                $param[] = [
                     'name' => "image[$index]",
                     'contents' => $buffer
                 ];
-                array_push($param, $data);
                 $index++;
             }
 
@@ -325,7 +320,7 @@ class QcloudImage
      */
     public function drivingLicence($picture, $type = 0)
     {
-        if (!is_array($picture)) {
+        if (!$picture || !is_array($picture)) {
             throw new InvalidArgumentException('param picture must be array');
         }
         if ($type !== 0 && $type !== 1) {
@@ -352,7 +347,7 @@ class QcloudImage
      */
     public function plate($picture)
     {
-        if (!is_array($picture)) {
+        if (!$picture || !is_array($picture)) {
             throw new InvalidArgumentException('param picture must be array');
         }
 
@@ -374,7 +369,7 @@ class QcloudImage
      */
     public function bankcard($picture)
     {
-        if (!is_array($picture)) {
+        if (!$picture || !is_array($picture)) {
             throw new InvalidArgumentException('param picture must be array');
         }
         $reqUrl = $this->conf->buildUrl('/ocr/bankcard');
@@ -395,7 +390,7 @@ class QcloudImage
      */
     public function bizlicense($picture)
     {
-        if (!is_array($picture)) {
+        if (!$picture || !is_array($picture)) {
             throw new InvalidArgumentException('param picture must be array');
         }
         $reqUrl = $this->conf->buildUrl('/ocr/bizlicense');
@@ -416,7 +411,7 @@ class QcloudImage
      */
     public function general($picture)
     {
-        if (!is_array($picture)) {
+        if (!$picture || !is_array($picture)) {
             throw new InvalidArgumentException('param picture must be array');
         }
         $reqUrl = $this->conf->buildUrl('/ocr/general');
@@ -438,7 +433,7 @@ class QcloudImage
      */
     public function handwriting($picture)
     {
-        if (!is_array($picture)) {
+        if (!$picture || !is_array($picture)) {
             throw new InvalidArgumentException('param picture must be array');
         }
         $reqUrl = $this->conf->buildUrl('/ocr/handwriting');
@@ -465,7 +460,7 @@ class QcloudImage
      */
     public function faceDetect(array $picture, $mode = 0)
     {
-        if (!is_array($picture)) {
+        if (!$picture || !is_array($picture)) {
             throw new InvalidArgumentException('param picture must be array');
         }
         if ($mode !== 0 && $mode !== 1) {
@@ -495,7 +490,7 @@ class QcloudImage
     public function faceShape($picture, $mode = 0)
     {
 
-        if (!is_array($picture)) {
+        if (!$picture || !is_array($picture)) {
             throw new InvalidArgumentException('param picture must be array');
         }
         if ($mode !== 0 && $mode !== 1) {
@@ -528,7 +523,7 @@ class QcloudImage
      */
     public function faceCompare($pictureA, $pictureB)
     {
-        if (!is_array($pictureA)) {
+        if (!$picture || !is_array($pictureA)) {
             throw new InvalidArgumentException('param pictureA must be array');
         }
         if (!is_array($pictureB)) {
@@ -600,7 +595,7 @@ class QcloudImage
     public function faceNewPerson($personId, $groupIds, $picture, $personName = NULL, $tag = NULL)
     {
 
-        if (!is_array($groupIds)) {
+        if (!$picture || !is_array($groupIds)) {
             throw new InvalidArgumentException('param groupIds must be array');
         }
         if (!is_array($picture)) {
@@ -611,10 +606,10 @@ class QcloudImage
         $options['person_id'] = $personId;
         $options['group_ids'] = $groupIds;
         if ($personName) {
-            $options['person_name'] = strval($personName);
+            $options['person_name'] = $personName;
         }
         if ($tag) {
-            $options['tag'] = strval($tag);
+            $options['tag'] = $tag;
         }
         return $this->singlePictureDetect($picture, $reqUrl, $options);
     }
@@ -651,7 +646,7 @@ class QcloudImage
      */
     public function faceAddFace($personId, $pictures, $tag = NULL)
     {
-        if (!is_array($pictures)) {
+        if (!$picture || !is_array($pictures)) {
             throw new InvalidArgumentException('param picture must be array');
         }
         $reqUrl = $this->conf->buildUrl('/face/addface');
@@ -715,7 +710,7 @@ class QcloudImage
      */
     public function faceDelFace($personId, $faceIds)
     {
-        if (!is_array($faceIds)) {
+        if (!$picture || !is_array($faceIds)) {
             throw new InvalidArgumentException('param faceIds must be array');
         }
         $reqUrl = $this->conf->buildUrl('/face/delface');
@@ -834,7 +829,7 @@ class QcloudImage
      */
     public function faceAddGroupIds($personId, $groupIds, $sessionId = null)
     {
-        if (!is_array($groupIds)) {
+        if (!$picture || !is_array($groupIds)) {
             throw new InvalidArgumentException('param groupids must be array');
         }
         $reqUrl = $this->conf->buildUrl('/face/addgroupids');
@@ -858,7 +853,7 @@ class QcloudImage
      */
     public function faceDelGroupIds($personId, $groupIds, $sessionId = null)
     {
-        if (!is_array($groupIds)) {
+        if (!$picture || !is_array($groupIds)) {
             throw new InvalidArgumentException('param groupids must be array');
         }
         $reqUrl = $this->conf->buildUrl('face/delgroupids');
@@ -886,7 +881,7 @@ class QcloudImage
      */
     public function faceVerify($personId, $picture)
     {
-        if (!is_array($picture)) {
+        if (!$picture || !is_array($picture)) {
             throw new InvalidArgumentException('param picture must be array');
         }
         $reqUrl = $this->conf->buildUrl('/face/verify');
@@ -898,7 +893,7 @@ class QcloudImage
 
     /**
      * 识别指定的图片属于哪个人（人脸检索）
-     * @param  array $groupId 需要对比的GroupId
+     * @param  array|string $groupIds 需要对比的GroupId
      * @param  array(associative) $picture   Person的人脸图片
      *                  url    string: 指定图片的url
      *                  file   string: 指定图片的路径
@@ -909,16 +904,23 @@ class QcloudImage
      * @throws InvalidArgumentException
      * @throws InvalidFilePathException
      */
-    public function faceIdentify($groupId, $picture)
+    public function faceIdentify($groupIds, $picture)
     {
-        if (!is_array($picture)) {
+        if (!$picture || !is_array($picture)) {
             throw new InvalidArgumentException('param picture must be array');
         }
         $reqUrl = $this->conf->buildUrl('/face/identify');
-        $options = [
-            'group_id' => $groupId,
-        ];
-        return $this-$this->singlePictureDetect($picture, $reqUrl, $options);
+        if (!is_array($groupIds)) {
+            $options = [
+                'group_id' => $groupIds,
+            ];
+        } else {
+            $options = [
+                'group_ids' => $groupIds,
+            ];
+        }
+
+        return $this->singlePictureDetect($picture, $reqUrl, $options);
     }
 
     /**
@@ -928,65 +930,30 @@ class QcloudImage
      *                  file   string: 指定图片的路径
      *                  buffer string: 指定图片的内容
      *                  以上三种指定其一即可，如果指定多个，则优先使用url，其次 file, 最后buffer
-     * @param  array $idtype  group_id:单个id，group_ids：多个id
+     * @param  array|string $groupIds  单个id 或者多个id的数组
      * @return array    http请求响应
      * @throws HttpException
      * @throws InvalidArgumentException
      * @throws InvalidFilePathException
      */
-    public function multidentify($picture, $idtype)
+    public function multidentify($picture, $groupIds)
     {
         if (!$picture || !is_array($picture)) {
             throw new InvalidArgumentException('param picture must be array');
         }
         $reqUrl = $this->conf->buildUrl('/face/multidentify');
 
-        if (isset($picture['url'])) {   //url
-            $param = $this->baseJsonParams();
-            $param['url'] = $picture['url'];
-            if (isset($idtype['group_id'])) {
-                $param['group_id'] = $idtype['group_id'];
-            } else if (isset($idtype['group_ids'])) {
-                $param['group_ids'] = $idtype['group_ids'];
-            } else {
-                throw new InvalidArgumentException('param idtype is illegal');
-            }
-            return $this->sendJsonRequest($reqUrl, $param);
-        }
-
-        if (isset($picture['file'])) {
-            $param = $this->baseMultiParams();
-            $filePath = $this->getFileRealPath($picture['file']);
-            $param[] = [
-                'name'=> 'image',
-                'contents' => fopen($filePath, 'r'),
-            ];
-        } else if (isset($picture['buffer'])) {
-            $param[] = [
-                'name'=> 'image',
-                'contents' =>$picture['buffer'],
+        if (!is_array($groupIds)) {
+            $options = [
+                'group_id' => $groupIds,
             ];
         } else {
-            throw new InvalidArgumentException('param picture is illegal');
+            $options = [
+                'group_ids' => $groupIds,
+            ];
         }
 
-        if (isset($idtype['group_id'])) {
-            $param[] = [
-                'group_id' => $idtype['group_id'],
-            ];
-        } else if (isset($idtype['group_ids'])) {
-            $index = 0;
-            foreach ($idtype['group_ids'] as $id) {
-                $param[] = [
-                    'name' => "group_ids[$index]",
-                    'contents' => $id,
-                ];
-                $index++;
-            }
-        } else {
-            throw new InvalidArgumentException('param idtype is illegal');
-        }
-        return $this->sendMultipleFormDataRequest($reqUrl, $param);
+        return $this->singlePictureDetect($picture, $reqUrl, $options);
     }
 
     // 人脸识别 模块结束 //
@@ -1016,7 +983,7 @@ class QcloudImage
     }
 
     /**
-     * 检测图片中的人和给定的信息是否匹配（用户上传照片身份信息核验）
+     * 检测图片中的人和给定的信息是否匹配
      * @param  string $idcardNumber 身份证号
      * @param  string $idcardName 姓名
      * @param  array(associative) $picture   人脸图片
@@ -1207,8 +1174,8 @@ class QcloudImage
     private function baseHeaders()
     {
         return [
-            'Authorization' => $this->auth->getSign($this->bucket),
-            'User-Agent' => Conf::getUa($this->auth->getAppId()),
+            'Authorization' => $this->auth->getSign(),
+            // 'User-Agent' => Conf::getUa($this->auth->getAppId()),
         ];
     }
 
@@ -1216,7 +1183,7 @@ class QcloudImage
     {
         return [
             'appid' => $this->auth->getAppId(),
-            'bucket' => $this->bucket,
+            //'bucket' => $this->bucket,
         ];
     }
 
@@ -1227,10 +1194,10 @@ class QcloudImage
                 'name' => 'appid',
                 'contents' => $this->auth->getAppId(),
             ],
-            [
+            /*[
                 'name' => 'bucket',
                 'contents' => $this->bucket,
-            ]
+            ]*/
         ];
     }
 
@@ -1269,7 +1236,7 @@ class QcloudImage
         try {
             $response = $this->getHttpClient()->post($reqUrl, $options)->getBody()->getContents();
             return \GuzzleHttp\json_decode($response, true);
-        } catch (\Exception $e) {
+        } catch (ClientException $e) {
             throw new HttpException($e->getMessage(), $e->getCode(), $e);
         }
     }
@@ -1288,7 +1255,7 @@ class QcloudImage
         try {
             $response = $this->getHttpClient()->post($reqUrl, $options)->getBody()->getContents();
             return \GuzzleHttp\json_decode($response, true);
-        } catch (\Exception $e) {
+        } catch (ClientException $e) {
             throw new HttpException($e->getMessage(), $e->getCode(), $e);
         }
     }
@@ -1334,8 +1301,10 @@ class QcloudImage
 
         if (isset($picture['file'])) {
             $filePath = $this->getFileRealPath($picture['file']);
+            $filename = pathinfo($filePath, PATHINFO_BASENAME);
             $files = [
                 'name' => 'image',
+                'filename' => $filename,
                 'contents' => fopen($filePath, 'r'),
             ];
 
@@ -1360,7 +1329,7 @@ class QcloudImage
                     $index = 0;
                     foreach ($option as $item) {
                         $param[] = [
-                            'name' => "$name[$index]",
+                            'name' => $name . "[$index]",
                             'contents' => $item
                         ];
                         $index++;
@@ -1370,7 +1339,6 @@ class QcloudImage
             }
         }
         $param[] = $files;
-
         return $this->sendMultipleFormDataRequest($reqUrl, $param);
     }
 }

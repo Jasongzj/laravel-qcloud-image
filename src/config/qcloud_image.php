@@ -13,5 +13,5 @@ return [
     'appid' => env('QCLOUD_IMAGE_APPID'),
     'secret_id' => env('QCLOUD_IMAGE_SECRET_ID'),
     'secret_key' => env('QCLOUD_IMAGE_SECRET_KEY'),
-    'bucket' => env('QCLOUD_IMAGE_BUCKET'),
+    'bucket' => env('QCLOUD_IMAGE_BUCKET', ''),
 ];

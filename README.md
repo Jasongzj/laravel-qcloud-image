@@ -5,7 +5,7 @@
 
 ## 安装
 
-```shell
+```
 $ composer require jasongzj/laravel-qcloud-image -vvv
 ```
 
@@ -32,12 +32,13 @@ php artisan vendor:publish --provider="Jasongzj\LaravelQcloudImage\ServiceProvid
 QCLOUD_IMAGE_APPID=xxxxx
 QCLOUD_IMAGE_SECRET_ID=xxxxxxxxxxx
 QCLOUD_IMAGE_SECRET_KEY=xxxxxxxxx
+# 历史遗留字段，可不填
 QCLOUD_IMAGE_BUCKET=xxxxxxx
 ```
 
 ## 使用
 
-### 方法参数注入
+#### 方法参数注入
 
 ```
 use Jasongzj\LaravelQcloudImage\QcloudImage;

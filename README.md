@@ -349,6 +349,8 @@ $qcloudImage->handwriting(array('buffer'=>file_get_contents('F:\pic\face1.jpg'))
 
 [云智AI应用服务智能图像 SDK V2.0](https://github.com/tencentyun/image-php-sdk-v2.0)
 
+[PHP 扩展包实战教程 - 从入门到发布](https://laravel-china.org/courses/creating-package)
+
 ## License
 
 MIT

@@ -17,20 +17,16 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     {
         $this->app->singleton(QcloudImage::class, function () {
             return new QcloudImage(
-                config('qcloud_image.appid'),
-                config('qcloud_image.secret_id'),
-                config('qcloud_image.secret_key'),
-                config('qcloud_image.bucket')
+                config('services.qcloud_image.appid'),
+                config('services.qcloud_image.secret_id'),
+                config('services.qcloud_image.secret_key'),
+                config('services.qcloud_image.bucket')
             );
         });
 
         $this->app->alias(QcloudImage::class, 'QcloudImage');
     }
 
-    public function boot()
-    {
-        $this->publishes([__DIR__.'/config/qcloud_image.php' => config_path('qcloud_image.php')], 'qcloud-image');
-    }
 
     public function provides()
     {

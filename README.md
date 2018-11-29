@@ -20,10 +20,14 @@ $ composer require jasongzj/laravel-qcloud-image -vvv
 ]
 ```
 
-2. 创建配置文件
-
+2. 在 `config/services.php` 文件中添加如下配置
 ```
-php artisan vendor:publish --provider="Jasongzj\LaravelQcloudImage\ServiceProvider"
+'qcloud_image' => [
+    'appid' => env('QCLOUD_IMAGE_APPID'),
+    'secret_id' => env('QCLOUD_IMAGE_SECRET_ID'),
+    'secret_key' => env('QCLOUD_IMAGE_SECRET_KEY'),
+    'bucket' => env('QCLOUD_IMAGE_BUCKET', ''),
+],
 ```
 
 3. 在 `.env` 文件中配置相关参数

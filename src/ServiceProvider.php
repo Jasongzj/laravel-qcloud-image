@@ -1,13 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jason
- * Date: 2018/11/22
- * Time: 15:43
+
+/*
+ * This file is part of the jasongzj/laravel-qcloud-image.
+ *
+ * (c) jasongzj <jasongzj@163.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace Jasongzj\LaravelQcloudImage;
-
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
@@ -26,7 +28,6 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
         $this->app->alias(QcloudImage::class, 'QcloudImage');
     }
-
 
     public function provides()
     {

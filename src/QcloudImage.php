@@ -8,10 +8,8 @@
 
 namespace Jasongzj\LaravelQcloudImage;
 
-
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Exception\RequestException;
 use Jasongzj\LaravelQcloudImage\Exceptions\HttpException;
 use Jasongzj\LaravelQcloudImage\Exceptions\InvalidArgumentException;
 use Jasongzj\LaravelQcloudImage\Exceptions\InvalidFilePathException;
@@ -242,7 +240,7 @@ class QcloudImage
             throw new InvalidArgumentException('param picture is illegal');
         }
 
-        return $this->sendJsonRequest($reqUrl, $param);
+        return $this->sendMultipleFormDataRequest($reqUrl, $param);
     }
 
     /**
@@ -302,15 +300,15 @@ class QcloudImage
             throw new InvalidArgumentException('param picture is illegal');
         }
 
-        return $this->sendJsonRequest($reqUrl, $param);
+        return $this->sendMultipleFormDataRequest($reqUrl, $param);
     }
 
     /**
      * 行驶证驾驶证识别
      * @param  array(associative) $picture   识别的图片
-     *        urls    array: 指定图片的url数组
-     *        files   array: 指定图片的路径数组
-     *        buffers array: 指定图片的内容
+     *        url    array: 指定图片的url数组
+     *        file   array: 指定图片的路径数组
+     *        buffer array: 指定图片的内容
      *        以上三种指定其一即可，如果指定多个，则优先使用urls，其次 files，最后buffers
      * @param int $type 表示识别类型，0 表示行驶证，1 表示驾驶证，2 表示行驶证副页。
      * @return array    http请求响应
@@ -336,9 +334,9 @@ class QcloudImage
     /**
      * 车牌号识别
      * @param  array(associative) $picture   车牌号的图片
-     *         urls    array: 指定图片的url数组
-     *         files   array: 指定图片的路径数组
-     *         buffers array: 指定图片的内容
+     *         url    array: 指定图片的url
+     *         file   array: 指定图片的路径
+     *         buffer array: 指定图片的内容
      *         以上三种指定其一即可，如果指定多个，则优先使用urls，其次 files，最后buffers
      * @return array    http请求响应
      * @throws HttpException
@@ -358,9 +356,9 @@ class QcloudImage
     /**
      * 银行卡识别
      * @param  array(associative) $picture   银行卡的图片
-     *         urls    array: 指定图片的url数组
-     *         files   array: 指定图片的路径数组
-     *         buffers array: 指定图片的内容
+     *         url    array: 指定图片的url
+     *         file   array: 指定图片的路径
+     *         buffer array: 指定图片的内容
      *         以上三种指定其一即可，如果指定多个，则优先使用urls，其次 files，最后buffers
      * @return array    http请求响应
      * @throws HttpException
@@ -379,9 +377,9 @@ class QcloudImage
     /**
      * 营业执照识别
      * @param  array(associative) $picture   营业执照图片
-     *         urls    array: 指定图片的url数组
-     *         files   array: 指定图片的路径数组
-     *         buffers array: 指定图片的内容
+     *         url    array: 指定图片的url
+     *         file   array: 指定图片的路径
+     *         buffer array: 指定图片的内容
      *         以上三种指定其一即可，如果指定多个，则优先使用urls，其次 files，最后buffers
      * @return array    http请求响应
      * @throws HttpException
@@ -400,9 +398,9 @@ class QcloudImage
     /**
      * 通用印刷体识别
      * @param  array(associative) $picture   识别的图片
-     *         urls    array: 指定图片的url数组
-     *         files   array: 指定图片的路径数组
-     *         buffers array: 指定图片的内容
+     *         url    array: 指定图片的url
+     *         file   array: 指定图片的路径
+     *         buffer array: 指定图片的内容
      *         以上三种指定其一即可，如果指定多个，则优先使用urls，其次 files，最后buffers
      * @return array    http请求响应
      * @throws HttpException
@@ -422,9 +420,9 @@ class QcloudImage
     /**
      * 手写体识别
      * @param  array(associative) $picture   识别的图片
-     *         urls    array: 指定图片的url数组
-     *         files   array: 指定图片的路径数组
-     *         buffers array: 指定图片的内容
+     *         url    array: 指定图片的url
+     *         file   array: 指定图片的路径
+     *         buffer array: 指定图片的内容
      *         以上三种指定其一即可，如果指定多个，则优先使用urls，其次 files，最后buffers
      * @return array    http请求响应
      * @throws HttpException
@@ -523,10 +521,10 @@ class QcloudImage
      */
     public function faceCompare($pictureA, $pictureB)
     {
-        if (!$picture || !is_array($pictureA)) {
+        if (!$pictureA || !is_array($pictureA)) {
             throw new InvalidArgumentException('param pictureA must be array');
         }
-        if (!is_array($pictureB)) {
+        if (!$pictureB || !is_array($pictureB)) {
             throw new InvalidArgumentException('param pictureB must be array');
         }
         $reqUrl = $this->conf->buildUrl('/face/compare');
@@ -646,7 +644,7 @@ class QcloudImage
      */
     public function faceAddFace($personId, $pictures, $tag = NULL)
     {
-        if (!$picture || !is_array($pictures)) {
+        if (!$pictures || !is_array($pictures)) {
             throw new InvalidArgumentException('param picture must be array');
         }
         $reqUrl = $this->conf->buildUrl('/face/addface');
@@ -710,7 +708,7 @@ class QcloudImage
      */
     public function faceDelFace($personId, $faceIds)
     {
-        if (!$picture || !is_array($faceIds)) {
+        if (!is_array($faceIds)) {
             throw new InvalidArgumentException('param faceIds must be array');
         }
         $reqUrl = $this->conf->buildUrl('/face/delface');
@@ -829,7 +827,7 @@ class QcloudImage
      */
     public function faceAddGroupIds($personId, $groupIds, $sessionId = null)
     {
-        if (!$picture || !is_array($groupIds)) {
+        if (!is_array($groupIds)) {
             throw new InvalidArgumentException('param groupids must be array');
         }
         $reqUrl = $this->conf->buildUrl('/face/addgroupids');
@@ -853,7 +851,7 @@ class QcloudImage
      */
     public function faceDelGroupIds($personId, $groupIds, $sessionId = null)
     {
-        if (!$picture || !is_array($groupIds)) {
+        if (!is_array($groupIds)) {
             throw new InvalidArgumentException('param groupids must be array');
         }
         $reqUrl = $this->conf->buildUrl('face/delgroupids');

@@ -1,5 +1,6 @@
 <?php
-/**
+
+/*
  * This file is part of the jasongzj/laravel-qcloud-image.
  *
  * (c) jasongzj <jasongzj@163.com>
@@ -10,11 +11,12 @@
 
 namespace Jasongzj\LaravelQcloudImage;
 
-
 class Auth
 {
     private $appId;
+
     private $secretId;
+
     private $secretKey;
 
     public function __construct($appId, $secretId, $secretKey)
@@ -25,7 +27,7 @@ class Auth
     }
 
     /**
-     * Return the appId
+     * Return the appId.
      */
     public function getAppId()
     {
@@ -48,9 +50,9 @@ class Auth
         $expiration = $now + $howlong;
         $random = rand();
 
-        $plainText = "a=" . $this->appId . "&b=$bucket&k=" . $this->secretId . "&e=$expiration&t=$now&r=$random&f=";
+        $plainText = 'a='.$this->appId."&b=$bucket&k=".$this->secretId."&e=$expiration&t=$now&r=$random&f=";
         $bin = hash_hmac('SHA1', $plainText, $this->secretKey, true);
-        return base64_encode($bin . $plainText);
-    }
 
+        return base64_encode($bin.$plainText);
+    }
 }

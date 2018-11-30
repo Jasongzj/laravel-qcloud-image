@@ -1,5 +1,6 @@
 <?php
-/**
+
+/*
  * This file is part of the jasongzj/laravel-qcloud-image.
  *
  * (c) jasongzj <jasongzj@163.com>
@@ -10,8 +11,6 @@
 
 namespace Jasongzj\LaravelQcloudImage\Exceptions;
 
-
 class HttpException extends Exception
 {
-
 }

@@ -101,7 +101,9 @@ class QcloudImage
             $param['url_list'] = $picture['urls'];
 
             return $this->sendJsonRequest($reqUrl, $param);
-        } else if (isset($picture['files'])) {
+        }
+
+        if (isset($picture['files'])) {
             $param = $this->baseMultiParams();
             $index = 0;
 

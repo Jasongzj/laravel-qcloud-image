@@ -1,6 +1,6 @@
 {
     "name": "jasongzj/laravel-qcloud-image",
-    "description": "tencent image recgnition SDK for Laravel",
+    "description": "tencent image detection SDK for Laravel",
     "license": "MIT",
     "authors": [
         {

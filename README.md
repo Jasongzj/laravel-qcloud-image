@@ -2,7 +2,7 @@
 
 <p align="center"> 腾讯云云智AI图像服务的SDK for Laravel.</p>
 
-![StyleCI build status](https://github.styleci.io/repos/XN5GgL/shield) 
+[![StyleCI](https://github.styleci.io/repos/158688236/shield?branch=master)](https://github.styleci.io/repos/158688236)
 
 ## 安装
 

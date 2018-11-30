@@ -1,5 +1,6 @@
 <?php
-/**
+
+/*
  * This file is part of the jasongzj/laravel-qcloud-image.
  *
  * (c) jasongzj <jasongzj@163.com>
@@ -9,7 +10,6 @@
  */
 
 namespace Jasongzj\LaravelQcloudImage;
-
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
@@ -28,7 +28,6 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
         $this->app->alias(QcloudImage::class, 'QcloudImage');
     }
-
 
     public function provides()
     {

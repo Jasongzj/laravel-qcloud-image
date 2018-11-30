@@ -1,5 +1,6 @@
 <?php
-/**
+
+/*
  * This file is part of the jasongzj/laravel-qcloud-image.
  *
  * (c) jasongzj <jasongzj@163.com>
@@ -10,15 +11,18 @@
 
 namespace Jasongzj\LaravelQcloudImage;
 
-
 class Conf
 {
     const SERVER_ADDR = 'service.image.myqcloud.com';
+
     const SERVER_ADDR2 = 'recognition.image.myqcloud.com';
+
     const VERSION = '2.0.0';
 
     private $SCHEME = 'https';
+
     private $HOST = self::SERVER_ADDR2;
+
     private $REQ_TIMEOUT = 60;
 
     public function setTimeout($timeout)
@@ -55,15 +59,16 @@ class Conf
 
     public function buildUrl($uri)
     {
-        return $this->SCHEME . '://' . $this->HOST . '/' . ltrim($uri, "/");
+        return $this->SCHEME.'://'.$this->HOST.'/'.ltrim($uri, '/');
     }
 
     public static function getUa($appid = null)
     {
-        $ua = 'CIPhpSDK/' . self::VERSION . ' (' . php_uname() . ')';
+        $ua = 'CIPhpSDK/'.self::VERSION.' ('.php_uname().')';
         if ($appid) {
             $ua .= " User($appid)";
         }
+
         return $ua;
     }
 }

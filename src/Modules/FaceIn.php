@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the jasongzj/laravel-qcloud-image.
  *
@@ -9,7 +10,6 @@
  */
 
 namespace Jasongzj\LaravelQcloudImage\Modules;
-
 
 use Jasongzj\LaravelQcloudImage\Exceptions\InvalidArgumentException;
 
@@ -23,7 +23,9 @@ class FaceIn extends BaseModuleApi
      *                                    file   string: 指定图片的路径
      *                                    buffer string: 指定图片的内容
      *                                    以上三种指定其一即可，如果指定多个，则优先使用url，其次 file，再次 buffer
+     *
      * @return \Psr\Http\Message\ResponseInterface
+     *
      * @throws InvalidArgumentException
      * @throws \Jasongzj\LaravelQcloudImage\Exceptions\InvalidFilePathException
      */
@@ -47,7 +49,9 @@ class FaceIn extends BaseModuleApi
      *                                         file   string: 指定图片的路径
      *                                         buffer string: 指定图片的内容
      *                                         以上三种指定其一即可，如果指定多个，则优先使用url，其次 file，再次 buffer
+     *
      * @return \Psr\Http\Message\ResponseInterface
+     *
      * @throws InvalidArgumentException
      * @throws \Jasongzj\LaravelQcloudImage\Exceptions\InvalidFilePathException
      */
@@ -87,18 +91,20 @@ class FaceIn extends BaseModuleApi
     /**
      * 活体检测第二步：检测--视频与用户视频比对.
      *
-     * @param string $validate faceLiveGetFour获取的验证码
+     * @param string             $validate    faceLiveGetFour获取的验证码
      * @param array(associative) $video       拍摄的视频
      *                                        file   string: 指定图片的路径
      *                                        buffer string: 指定图片的内容
      *                                        以上二种指定其一即可，如果指定多个，则优先使用 file，其次 buffer
-     * @param bool $compareFlag 是否将视频中的人和card图片比对
+     * @param bool               $compareFlag 是否将视频中的人和card图片比对
      * @param array(associative) $card        人脸图片
      *                                        file   string: 指定图片的路径
      *                                        buffer string: 指定图片的内容
      *                                        以上二种指定其一即可，如果指定多个，则优先使用 file，其次 buffer
-     * @param string $seq 指定一个sessionId，若使用，请确保id唯一
+     * @param string             $seq         指定一个sessionId，若使用，请确保id唯一
+     *
      * @return \Psr\Http\Message\ResponseInterface
+     *
      * @throws InvalidArgumentException
      * @throws \Jasongzj\LaravelQcloudImage\Exceptions\InvalidFilePathException
      */
@@ -177,6 +183,7 @@ class FaceIn extends BaseModuleApi
      * @param string             $idcardNumber 身份证号
      * @param string             $idcardName   姓名
      * @param string             $seq          指定一个sessionId，若使用，请确保id唯一
+     *
      * @return \Psr\Http\Message\ResponseInterface http请求响应
      *
      * @throws InvalidArgumentException

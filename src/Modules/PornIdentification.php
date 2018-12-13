@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the jasongzj/laravel-qcloud-image.
  *
@@ -9,7 +10,6 @@
  */
 
 namespace Jasongzj\LaravelQcloudImage\Modules;
-
 
 use Jasongzj\LaravelQcloudImage\Exceptions\InvalidArgumentException;
 
@@ -22,7 +22,9 @@ class PornIdentification extends BaseModuleApi
      *                                    urls    array: 指定图片的url数组
      *                                    files   array: 指定图片的路径数组
      *                                    以上两种指定其一即可，如果指定多个，则优先使用urls，其次 files
+     *
      * @return \Psr\Http\Message\ResponseInterface
+     *
      * @throws InvalidArgumentException
      * @throws \Jasongzj\LaravelQcloudImage\Exceptions\InvalidFilePathException
      */

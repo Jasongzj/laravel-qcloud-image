@@ -21,8 +21,8 @@ use Jasongzj\LaravelQcloudImage\Modules\Tag;
 use ReflectionClass;
 
 /**
- * Class QcloudImage
- * @package Jasongzj\LaravelQcloudImage
+ * Class QcloudImage.
+ *
  * @property FaceIn
  * @property FaceRecognition
  * @property ORC
@@ -65,7 +65,9 @@ class QcloudImage
 
     /**
      * @param $name
+     *
      * @return mixed|null
+     *
      * @throws \ReflectionException
      */
     public function __get($name)
@@ -147,9 +149,11 @@ class QcloudImage
     }
 
     /**
-     * 获取鉴权签名
+     * 获取鉴权签名.
+     *
      * @param string $bucket
-     * @param int $howlong
+     * @param int    $howlong
+     *
      * @return bool|string
      */
     public function getSign($bucket = '', $howlong = 30)

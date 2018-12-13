@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the jasongzj/laravel-qcloud-image.
  *
@@ -9,7 +10,6 @@
  */
 
 namespace Jasongzj\LaravelQcloudImage\Modules;
-
 
 use Jasongzj\LaravelQcloudImage\Exceptions\InvalidArgumentException;
 
@@ -24,8 +24,9 @@ class FaceRecognition extends BaseModuleApi
      *                                    buffer string: 指定图片的内容
      *                                    以上三种指定其一即可，如果指定多个，则优先使用url，其次 file，再次 buffer
      * @param int                $mode    检测模式，0为检测所有人脸，1为检测最大的人脸
+     *
      * @return \Psr\Http\Message\ResponseInterface
-     * 
+     *
      * @throws \Jasongzj\LaravelQcloudImage\Exceptions\InvalidArgumentException
      * @throws \Jasongzj\LaravelQcloudImage\Exceptions\InvalidFilePathException
      */
@@ -53,7 +54,9 @@ class FaceRecognition extends BaseModuleApi
      *                                    buffer string: 指定图片的内容
      *                                    以上三种指定其一即可，如果指定多个，则优先使用url，其次 file，再次 buffer
      * @param int                $mode    检测模式，0为检测所有人脸，1为检测最大的人脸
+     *
      * @return \Psr\Http\Message\ResponseInterface
+     *
      * @throws InvalidArgumentException
      * @throws \Jasongzj\LaravelQcloudImage\Exceptions\InvalidFilePathException
      */
@@ -86,8 +89,9 @@ class FaceRecognition extends BaseModuleApi
      *                                     file   string: 指定图片的路径
      *                                     buffer string: 指定图片的内容
      *                                     以上三种指定其一即可，如果指定多个，则优先使用url，其次 file，再次 buffer
-     * 
+     *
      * @return \Psr\Http\Message\ResponseInterface
+     *
      * @throws InvalidArgumentException
      * @throws \Jasongzj\LaravelQcloudImage\Exceptions\InvalidFilePathException
      */
@@ -150,17 +154,18 @@ class FaceRecognition extends BaseModuleApi
     /**
      *创建Person.
      *
-     * @param string $personId 创建的Person的ID
-     * @param array $groupIds 创建的Person需要加入的Group
+     * @param string             $personId   创建的Person的ID
+     * @param array              $groupIds   创建的Person需要加入的Group
      * @param array(associative) $picture    创建的Person的人脸图片
      *                                       url    string: 指定图片的url
      *                                       file   string: 指定图片的路径
      *                                       buffer string: 指定图片的内容
      *                                       以上三种指定其一即可，如果指定多个，则优先使用url，其次 file，再次 buffer
-     * @param string $personName 创建的Person的名字
-     * @param string $tag 为创建的Person打标签
+     * @param string             $personName 创建的Person的名字
+     * @param string             $tag        为创建的Person打标签
      *
      * @return \Psr\Http\Message\ResponseInterface
+     *
      * @throws InvalidArgumentException
      * @throws \Jasongzj\LaravelQcloudImage\Exceptions\InvalidFilePathException
      */
@@ -190,8 +195,8 @@ class FaceRecognition extends BaseModuleApi
      * 删除Person.
      *
      * @param string $personId 删除的Person的ID
-     * @return \Psr\Http\Message\ResponseInterface http请求响应
      *
+     * @return \Psr\Http\Message\ResponseInterface http请求响应
      */
     public function faceDelPerson($personId)
     {
@@ -213,8 +218,9 @@ class FaceRecognition extends BaseModuleApi
      *                                     buffers array: 指定图片的内容数组
      *                                     以上三种指定其一即可，如果指定多个，则优先使用urls，其次 files，再次 buffers
      * @param string             $tag      为face打标签
+     *
      * @return \Psr\Http\Message\ResponseInterface
-     * 
+     *
      * @throws InvalidArgumentException
      * @throws \Jasongzj\LaravelQcloudImage\Exceptions\InvalidFilePathException
      */
@@ -225,7 +231,7 @@ class FaceRecognition extends BaseModuleApi
         }
         $reqUrl = $this->image->buildUrl('/face/addface');
         $headers = $this->getHeaders();
-        
+
         if (isset($pictures['urls']) && is_array($pictures['urls'])) {
             $param = $this->baseJsonParams();
             $param['person_id'] = $personId;
@@ -279,7 +285,9 @@ class FaceRecognition extends BaseModuleApi
      *
      * @param string $personId 操作的Person的ID
      * @param array  $faceIds  删除的face的ID数组
+     *
      * @return \Psr\Http\Message\ResponseInterface
+     *
      * @throws InvalidArgumentException
      */
     public function faceDelFace($personId, $faceIds)
@@ -303,6 +311,7 @@ class FaceRecognition extends BaseModuleApi
      * @param string $personId   操作的Person的ID
      * @param string $personName Person的名字
      * @param string $tag        为Person打标签
+     *
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function faceSetInfo($personId, $personName = null, $tag = null)
@@ -326,6 +335,7 @@ class FaceRecognition extends BaseModuleApi
      * 获取信息.
      *
      * @param string $personId 操作的Person的ID
+     *
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function faceGetInfo($personId)
@@ -340,7 +350,7 @@ class FaceRecognition extends BaseModuleApi
 
     /**
      * 获取appid下的所有组列表.
-     * 
+     *
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function faceGetGroupIds()
@@ -356,6 +366,7 @@ class FaceRecognition extends BaseModuleApi
      * 获取group下的所有person列表.
      *
      * @param string $groupId 操作的GroupID
+     *
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function faceGetPersonIds($groupId)
@@ -372,6 +383,7 @@ class FaceRecognition extends BaseModuleApi
      * 获取person的face列表.
      *
      * @param string $personId 操作的Person的ID
+     *
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function faceGetFaceIds($personId)
@@ -388,6 +400,7 @@ class FaceRecognition extends BaseModuleApi
      * 获取face的信息.
      *
      * @param string $faceId 操作的FaceID
+     *
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function faceGetFaceInfo($faceId)
@@ -406,8 +419,9 @@ class FaceRecognition extends BaseModuleApi
      * @param string $personId  创建的Person的ID
      * @param array  $groupIds  要新增的 group_ids
      * @param string $sessionId 会话 ID
-     * 
+     *
      * @return \Psr\Http\Message\ResponseInterface
+     *
      * @throws InvalidArgumentException
      */
     public function faceAddGroupIds($personId, $groupIds, $sessionId = null)
@@ -433,8 +447,9 @@ class FaceRecognition extends BaseModuleApi
      * @param string $personId  人脸 ID
      * @param array  $groupIds  群组 Id
      * @param string $sessionId 会话ID
-     * 
+     *
      * @return \Psr\Http\Message\ResponseInterface
+     *
      * @throws InvalidArgumentException
      */
     public function faceDelGroupIds($personId, $groupIds, $sessionId = null)
@@ -463,7 +478,9 @@ class FaceRecognition extends BaseModuleApi
      *                                     file   string: 指定图片的路径
      *                                     buffer string: 指定图片的内容
      *                                     以上三种指定其一即可，如果指定多个，则优先使用url，其次 file，再次 buffer
+     *
      * @return \Psr\Http\Message\ResponseInterface
+     *
      * @throws InvalidArgumentException
      * @throws \Jasongzj\LaravelQcloudImage\Exceptions\InvalidFilePathException
      */
@@ -491,6 +508,7 @@ class FaceRecognition extends BaseModuleApi
      *                                     以上三种指定其一即可，如果指定多个，则优先使用url，其次 file，再次 buffer
      *
      * @return \Psr\Http\Message\ResponseInterface
+     *
      * @throws InvalidArgumentException
      * @throws \Jasongzj\LaravelQcloudImage\Exceptions\InvalidFilePathException
      */
@@ -522,7 +540,9 @@ class FaceRecognition extends BaseModuleApi
      *                                     buffer string: 指定图片的内容
      *                                     以上三种指定其一即可，如果指定多个，则优先使用url，其次 file, 最后buffer
      * @param array|string       $groupIds 单个id 或者多个id的数组
+     *
      * @return \Psr\Http\Message\ResponseInterface
+     *
      * @throws InvalidArgumentException
      * @throws \Jasongzj\LaravelQcloudImage\Exceptions\InvalidFilePathException
      */

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the jasongzj/laravel-qcloud-image.
  *
@@ -9,7 +10,6 @@
  */
 
 namespace Jasongzj\LaravelQcloudImage\Modules;
-
 
 use Jasongzj\LaravelQcloudImage\Core\BaseApi;
 use Jasongzj\LaravelQcloudImage\Exceptions\InvalidArgumentException;
@@ -23,9 +23,11 @@ class BaseModuleApi extends BaseApi
      *                                    files   array: 指定图片的路径数组
      *                                    buffers array: 指定图片的内容
      *                                    以上三种指定其一即可，如果指定多个，则优先使用urls，其次 files，最后buffers
-     * @param string $reqUrl 请求地址
-     * @param array $options 额外携带的参数
+     * @param string             $reqUrl  请求地址
+     * @param array              $options 额外携带的参数
+     *
      * @return \Psr\Http\Message\ResponseInterface
+     *
      * @throws InvalidArgumentException
      * @throws InvalidFilePathException
      */

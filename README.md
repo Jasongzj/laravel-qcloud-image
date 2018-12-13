@@ -27,7 +27,6 @@ $ composer require jasongzj/laravel-qcloud-image -vvv
     'appid' => env('QCLOUD_IMAGE_APPID'),
     'secret_id' => env('QCLOUD_IMAGE_SECRET_ID'),
     'secret_key' => env('QCLOUD_IMAGE_SECRET_KEY'),
-    'bucket' => env('QCLOUD_IMAGE_BUCKET', ''),
 ],
 ```
 
@@ -37,8 +36,6 @@ $ composer require jasongzj/laravel-qcloud-image -vvv
 QCLOUD_IMAGE_APPID=xxxxx
 QCLOUD_IMAGE_SECRET_ID=xxxxxxxxxxx
 QCLOUD_IMAGE_SECRET_KEY=xxxxxxxxx
-# 历史遗留字段，可不填
-QCLOUD_IMAGE_BUCKET=xxxxxxx
 ```
 
 ## 使用
@@ -53,7 +50,7 @@ use Jasongzj\LaravelQcloudImage\QcloudImage;
     public function detect(QcloudImage $qcloudImage)
     {
         $image = array('url' => 'http://img3.a0bi.com/upload/ttq/20160814/1471155260063.png');
-        $qcloudImage->detect($image, 1);
+        $qcloudImage->faceRecognition->faceDetect($image, 1);
     }
 ·
 ·
@@ -69,9 +66,8 @@ use Jasongzj\LaravelQcloudImage\QcloudImage;
 ·
     public function detect()
     {
-        
         $image = array('url' => 'http://img3.a0bi.com/upload/ttq/20160814/1471155260063.png');
-        app(QcloudImage::class)->detect($image, 1);
+        app(QcloudImage::class)->faceRecognition->faceDetect($image, 1);
     }
 ·
 ·

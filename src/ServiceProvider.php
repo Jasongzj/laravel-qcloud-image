@@ -21,8 +21,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             return new QcloudImage(
                 config('services.qcloud_image.appid'),
                 config('services.qcloud_image.secret_id'),
-                config('services.qcloud_image.secret_key'),
-                config('services.qcloud_image.bucket')
+                config('services.qcloud_image.secret_key')
             );
         });
 

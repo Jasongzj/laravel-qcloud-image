@@ -14,7 +14,8 @@
         }
     },
     "require": {
-        "guzzlehttp/guzzle": "^6.3"
+        "guzzlehttp/guzzle": "^6.3",
+        "symfony/psr-http-message-bridge": "^1.1"
     },
     "extra": {
         "laravel": {

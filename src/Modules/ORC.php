@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the jasongzj/laravel-qcloud-image.
  *
@@ -9,7 +10,6 @@
  */
 
 namespace Jasongzj\LaravelQcloudImage\Modules;
-
 
 use Jasongzj\LaravelQcloudImage\Exceptions\InvalidArgumentException;
 
@@ -24,7 +24,9 @@ class ORC extends BaseModuleApi
      *                                     buffers array: 指定图片的内容
      *                                     以上三种指定其一即可，如果指定多个，则优先使用urls，其次 files，最后buffers
      * @param int                $cardType 0为身份证有照片的一面，1为身份证有国徽的一面
+     *
      * @return \Psr\Http\Message\ResponseInterface
+     *
      * @throws InvalidArgumentException
      * @throws \Jasongzj\LaravelQcloudImage\Exceptions\InvalidFilePathException
      */
@@ -89,7 +91,9 @@ class ORC extends BaseModuleApi
      *                                    files   array: 指定图片的路径数组
      *                                    buffers array: 指定图片的内容
      *                                    以上三种指定其一即可，如果指定多个，则优先使用urls，其次 files，最后buffers
+     *
      * @return \Psr\Http\Message\ResponseInterface
+     *
      * @throws InvalidArgumentException
      * @throws \Jasongzj\LaravelQcloudImage\Exceptions\InvalidFilePathException
      */
@@ -147,7 +151,9 @@ class ORC extends BaseModuleApi
      *                                    buffer array: 指定图片的内容
      *                                    以上三种指定其一即可，如果指定多个，则优先使用urls，其次 files，最后buffers
      * @param int                $type    表示识别类型，0 表示行驶证，1 表示驾驶证，2 表示行驶证副页
+     *
      * @return mixed|\Psr\Http\Message\ResponseInterface
+     *
      * @throws InvalidArgumentException
      * @throws \Jasongzj\LaravelQcloudImage\Exceptions\InvalidFilePathException
      */
@@ -174,7 +180,9 @@ class ORC extends BaseModuleApi
      *                                    file   array: 指定图片的路径
      *                                    buffer array: 指定图片的内容
      *                                    以上三种指定其一即可，如果指定多个，则优先使用urls，其次 files，最后buffers
+     *
      * @return \Psr\Http\Message\ResponseInterface
+     *
      * @throws InvalidArgumentException
      * @throws \Jasongzj\LaravelQcloudImage\Exceptions\InvalidFilePathException
      */
@@ -197,7 +205,9 @@ class ORC extends BaseModuleApi
      *                                    file   array: 指定图片的路径
      *                                    buffer array: 指定图片的内容
      *                                    以上三种指定其一即可，如果指定多个，则优先使用urls，其次 files，最后buffers
+     *
      * @return \Psr\Http\Message\ResponseInterface
+     *
      * @throws InvalidArgumentException
      * @throws \Jasongzj\LaravelQcloudImage\Exceptions\InvalidFilePathException
      */
@@ -219,7 +229,9 @@ class ORC extends BaseModuleApi
      *                                    file   array: 指定图片的路径
      *                                    buffer array: 指定图片的内容
      *                                    以上三种指定其一即可，如果指定多个，则优先使用urls，其次 files，最后buffers
+     *
      * @return \Psr\Http\Message\ResponseInterface
+     *
      * @throws InvalidArgumentException
      * @throws \Jasongzj\LaravelQcloudImage\Exceptions\InvalidFilePathException
      */
@@ -241,7 +253,9 @@ class ORC extends BaseModuleApi
      *                                    file   array: 指定图片的路径
      *                                    buffer array: 指定图片的内容
      *                                    以上三种指定其一即可，如果指定多个，则优先使用urls，其次 files，最后buffers
+     *
      * @return \Psr\Http\Message\ResponseInterface
+     *
      * @throws InvalidArgumentException
      * @throws \Jasongzj\LaravelQcloudImage\Exceptions\InvalidFilePathException
      */
@@ -263,7 +277,9 @@ class ORC extends BaseModuleApi
      *                                    file   array: 指定图片的路径
      *                                    buffer array: 指定图片的内容
      *                                    以上三种指定其一即可，如果指定多个，则优先使用urls，其次 files，最后buffers
+     *
      * @return \Psr\Http\Message\ResponseInterface
+     *
      * @throws InvalidArgumentException
      * @throws \Jasongzj\LaravelQcloudImage\Exceptions\InvalidFilePathException
      */

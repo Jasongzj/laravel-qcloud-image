@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the jasongzj/laravel-qcloud-image.
  *
@@ -9,7 +10,6 @@
  */
 
 namespace Jasongzj\LaravelQcloudImage\Modules;
-
 
 use Jasongzj\LaravelQcloudImage\Exceptions\InvalidArgumentException;
 
@@ -23,7 +23,9 @@ class Tag extends BaseModuleApi
      *                                    file   array: 指定图片的路径数组
      *                                    buffer string: 指定图片的内容
      *                                    以上三种指定其一即可，如果指定多个，则优先使用url，其次 file，再次 buffer
+     *
      * @return mixed
+     *
      * @throws InvalidArgumentException
      * @throws \Jasongzj\LaravelQcloudImage\Exceptions\InvalidFilePathException
      */

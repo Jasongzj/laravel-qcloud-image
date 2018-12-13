@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the jasongzj/laravel-qcloud-image.
  *
@@ -46,9 +47,11 @@ abstract class BaseApi
 
     /**
      * 发送 multiple/form-data 请求
+     *
      * @param $reqUrl
      * @param $headers
      * @param $data
+     *
      * @return \Psr\Http\Message\ResponseInterface
      */
     protected function multipleFormDataRequest($reqUrl, $headers, $data)
